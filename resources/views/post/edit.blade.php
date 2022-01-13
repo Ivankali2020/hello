@@ -29,7 +29,23 @@
                                 @enderror
                             </div>
 
-
+                            <div class="mb-3 d-flex flex-wrap ">
+                                <label for="">TAGS </label>
+                                @foreach(\App\Models\Tag::all() as $tag)
+                                    <div class="form-check me-3 ">
+                                        <input class="form-check-input" {{ in_array($tag->id, old('tags',$post->tags->pluck('id')->toArray())) ? 'checked' : '' }} type="checkbox" name="tags[]"  value="{{ $tag->id }}" id="tag{{ $tag->id }}" >
+                                        <label class="form-check-label" for="tag{{ $tag->id }}">
+                                            {{ $tag->title }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                                @error('tags')
+                                <p class="text-danger small mt-2">{{ $message }}</p>
+                                @enderror
+                                @error('tags.*')
+                                <p class="text-danger small mt-2">{{ $message }}</p>
+                                @enderror
+                            </div>
                             <div class="mb-3">
                                 <label>Post Title</label>
                                 <select type="text" name="category"  class="form-select @error('category') is-invalid @enderror">
@@ -73,10 +89,9 @@
                         <form action="{{ route('photo.store') }}" method="post" enctype="multipart/form-data" id="uploaderForm" class="d-none">
                             @csrf
                             <input type="hidden" value="{{ $post->id }}" name="post_id">
-                            <input type="file" name="photo[]" accept="image/jpeg,image/png" class="form-control" id="uploaderInput" multiple>
+                            <input type="file" onchange="form.submit()" name="photos[]" accept="image/jpeg,image/png" class="form-control" id="uploaderInput" multiple>
                             <button class="btn btn-primary">Upload</button>
                         </form>
-
 
                         <div class="mb-3 d-flex">
                             <div class="d-inline-flex justify-content-center align-items-center border border-dark border-3 px-3 rounded" id="uploaderUi">
@@ -109,6 +124,7 @@
 
         uploaderUi.addEventListener('click',function (){
             uploaderInput.click();
+
         })
 
         uploaderInput.addEventListener('change',function (){

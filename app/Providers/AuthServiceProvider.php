@@ -29,6 +29,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+//        Gate::before(function ($user){
+//            return $user->role == 0;
+//        });
+
 
     }
 }

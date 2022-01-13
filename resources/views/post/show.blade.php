@@ -11,7 +11,13 @@
                     <div class="card-body">
 
                         {{ $post->description }}
-
+                        <div class="row  mt-5 ">
+                            @foreach($post->photos as $photo)
+                                <div class="col-2 ">
+                                    <img src=" {{asset('storage/photo/'.$photo->name)}}" width="100%" height="100%"  alt="">
+                                </div>
+                            @endforeach
+                        </div>
                         <hr>
                         <a href="{{ route('post.index') }}" class="btn btn-primary">Read All</a>
                     </div>

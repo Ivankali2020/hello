@@ -41,6 +41,7 @@
                                 <th class="w-25">Title</th>
                                 <th>photo</th>
                                 <th>Category</th>
+                                <th>Tags</th>
                                 @if(Auth::user()->role == 0)
                                 <th>Owner</th>
                                 @endif
@@ -68,6 +69,14 @@
                                             <span class="badge bg-primary">
                                                 {{ $post->category->title }}
                                             </span>
+
+                                        </td>
+                                        <td>
+                                            @foreach($post->tags as $tag)
+                                                <span class="badge bg-primary">
+                                                #{{ $tag->title }}
+                                                </span>
+                                            @endforeach
                                         </td>
                                         @if(Auth::user()->role == 0)
                                         <td>{{ $post->user->name }}</td>
@@ -107,9 +116,6 @@
 
                             </tbody>
                         </table>
-
-
-
 
 
                     </div>

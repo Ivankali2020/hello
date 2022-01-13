@@ -39,13 +39,31 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label>Photo</label>
-                                <input type="file" name="photo[]" value="{{ old('photo') }}" class="form-control @error('photo') is-invalid @enderror" multiple>
-                                @error('photo')
+                            <div class="mb-3 d-flex flex-wrap ">
+                                <label for="">TAGS </label>
+                                @foreach(\App\Models\Tag::all() as $tag)
+                                <div class="form-check me-3 ">
+                                    <input class="form-check-input" {{ in_array($tag->id, old('tags',[])) ? 'checked' : '' }} type="checkbox" name="tags[]"  value="{{ $tag->id }}" id="tag{{ $tag->id }}" >
+                                    <label class="form-check-label" for="tag{{ $tag->id }}">
+                                        {{ $tag->title }}
+                                    </label>
+                                </div>
+                                @endforeach
+                                @error('tags')
                                 <p class="text-danger small mt-2">{{ $message }}</p>
                                 @enderror
-                                @error('photo.*')
+                                @error('tags.*')
+                                <p class="text-danger small mt-2">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Photo</label>
+                                <input type="file" name="photos[]" value="{{ old('photos') }}" class="form-control @error('photo') is-invalid @enderror" multiple>
+                                @error('photos')
+                                <p class="text-danger small mt-2">{{ $message }}</p>
+                                @enderror
+                                @error('photos.*')
                                 <p class="text-danger small mt-2">{{ $message }}</p>
                                 @enderror
                             </div>

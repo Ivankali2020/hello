@@ -29,15 +29,20 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                @auth
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item ">
                             <a href="{{ route('home') }}" class="nav-link {{ request()->url() == route('home') ? 'active' : '' }}">Home</a>
                         </li>
+
+                        @isAdmin
                         <li class="nav-item ">
                             <a href="{{ route('category.create') }}" class="nav-link {{ request()->url() == route('category.create') ? 'active' : '' }}" >Manage Category</a>
                         </li>
+                        @endisAdmin
 
                         <li class="nav-item dropdown">
                             <a class="nav-link  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,6 +58,7 @@
                             </ul>
                         </li>
                     </ul>
+                @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -90,6 +96,7 @@
                         @endguest
                     </ul>
                 </div>
+
             </div>
         </nav>
 
